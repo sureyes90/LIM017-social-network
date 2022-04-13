@@ -9,13 +9,16 @@
 // setTimeout(disappearText, 9000);
 import { welcome } from './components/home.js';
 import { login } from './components/login.js';
+import { register } from './components/register.js';
+import { forgot } from './components/forgot_password.js';
 
 const mainFirstPage = document.querySelector('.show_home_page');
 
 const routes = {
   '/': welcome,
   '/login': login,
-
+  '/register': register,
+  '/forgot': forgot,
 };
 
 export const onNavigate = (pathname) => {
@@ -25,15 +28,16 @@ export const onNavigate = (pathname) => {
     pathname,
     window.location.origin + pathname,
   );
-    while (mainFirstPage.firstChild) {
-    mainFirstPage.removeChild(mainFirstPage.firstChild);}
+  while (mainFirstPage.firstChild) {
+    mainFirstPage.removeChild(mainFirstPage.firstChild);
+  }
   mainFirstPage.appendChild(routes[pathname]());
-  };
-  const component = routes[window.location.pathname];
+};
+const component = routes[window.location.pathname];
 
-  window.onpopstate = () => {
-    while (mainFirstPage.firstChild) {
-      mainFirstPage.removeChild(mainFirstPage.firstChild);
+window.onpopstate = () => {
+  while (mainFirstPage.firstChild) {
+    mainFirstPage.removeChild(mainFirstPage.firstChild);
   }
   mainFirstPage.appendChild(routes[window.location.pathname]());
 };
